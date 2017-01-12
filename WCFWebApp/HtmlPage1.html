@@ -1,0 +1,44 @@
+﻿<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+	<script>
+		$(document).ready(function () {
+			$('#btnGetStudent').click(function () {
+				var stdId = $('#txtId').val();
+				
+
+				$.ajax({
+					url: 'StudentService.svc/GetStudentById',
+					method: 'post',
+					contentType: "application/json;charset=utf-8",
+					data: JSON.stringify({ studentId: stdId }),
+					dataType: 'json',
+					success: function (data) {
+						$('#txtIme').val(data.d.Ime);
+						$('#txtPrezime').val(data.d.Prezime);
+					},
+					error: function (err) {
+						alert(err);
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body style="font-family:Arial">
+	ID :
+	<input id="txtId" type="text" style="width: 86px" />
+	<input type="button" id="btnGetStudent" value="Get Student" />
+	<br /><br />
+	<table border="1" style="border-collapse: collapse">
+		<tr>
+			<td>Name</td>
+			<td><input id="txtIme" type="text" /></td>
+		</tr>
+		<tr>
+			<td>Gender</td>
+			<td><input id="txtPrezime" type="text" /></td>
+		</tr>
+	</table>
+</body>
+</html>
